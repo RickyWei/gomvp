@@ -6,21 +6,20 @@ import (
 	"net/http"
 	"time"
 
+	"github.com/99designs/gqlgen/graphql/handler"
+	"github.com/99designs/gqlgen/graphql/handler/extension"
+	"github.com/99designs/gqlgen/graphql/playground"
 	"github.com/gin-gonic/gin"
 	"github.com/google/wire"
-	swaggerFiles "github.com/swaggo/files"
-	ginSwagger "github.com/swaggo/gin-swagger"
 
+	"github.com/rickywei/sparrow/project/api/middleware"
 	"github.com/rickywei/sparrow/project/conf"
-	"github.com/rickywei/sparrow/project/docs"
-	"github.com/rickywei/sparrow/project/handler"
-	"github.com/rickywei/sparrow/project/middleware"
+	"github.com/rickywei/sparrow/project/graph"
+	"github.com/rickywei/sparrow/project/graph/resolver"
 )
 
 var (
 	ProviderSet = wire.NewSet(NewApi)
-
-	routesFuncs = []func(*API){}
 )
 
 type API struct {
@@ -28,42 +27,31 @@ type API struct {
 	srv    *http.Server
 	ctx    context.Context
 	cancel context.CancelFunc
-
-	userHandler *handler.UserHandler
 }
 
-func NewApi(userHandler *handler.UserHandler) *API {
+func NewApi() *API {
+	ctx, cancel := context.WithTimeout(context.Background(), time.Minute)
+
 	engine := gin.New()
-	engine.Use(middleware.Logger(), middleware.Recover())
-	// swagger
-	if conf.Bool("app.doc.enable") {
-		// https://github.com/swaggo/swag#swag
-		docs.SwaggerInfo.Title = "App api"
-		docs.SwaggerInfo.Version = ""
-		docs.SwaggerInfo.BasePath = "/"
-		engine.GET("/swagger/*any",
-			gin.BasicAuth(gin.Accounts{conf.String("app.doc.account"): conf.String("app.doc.password")}),
-			ginSwagger.WrapHandler(swaggerFiles.Handler))
-	}
+	engine.Use(middleware.Logger(),
+		middleware.Recover(),
+		middleware.GinContextToContext(),
+	)
 
 	srv := &http.Server{
 		Addr:    fmt.Sprintf("%s:%d", conf.String("app.ip"), conf.Int("app.port")),
 		Handler: engine,
 	}
 
-	ctx, cancel := context.WithTimeout(context.Background(), time.Minute)
-
 	api := &API{
 		engine: engine,
 		srv:    srv,
 		ctx:    ctx,
 		cancel: cancel,
-
-		userHandler: userHandler,
 	}
-
-	for _, f := range routesFuncs {
-		f(api)
+	api.engine.POST("/graphql", graphqlHandler())
+	if !conf.IsProd() {
+		api.engine.GET("/playground", playgroundHandler())
 	}
 
 	return api
@@ -77,4 +65,21 @@ func (a *API) Stop() {
 	defer a.cancel()
 
 	a.srv.Shutdown(a.ctx)
+}
+
+func graphqlHandler() gin.HandlerFunc {
+	h := handler.NewDefaultServer(graph.NewExecutableSchema(graph.Config{Resolvers: &resolver.Resolver{}}))
+	h.Use(extension.AutomaticPersistedQuery{Cache: middleware.GetApqCache()})
+
+	return func(c *gin.Context) {
+		h.ServeHTTP(c.Writer, c.Request)
+	}
+}
+
+func playgroundHandler() gin.HandlerFunc {
+	h := playground.Handler("GraphQL", "/graphql")
+
+	return func(c *gin.Context) {
+		h.ServeHTTP(c.Writer, c.Request)
+	}
 }

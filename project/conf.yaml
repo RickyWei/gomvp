@@ -1,3 +1,5 @@
+env: debug
+
 log:
   level: debug
   console: true
@@ -10,14 +12,11 @@ app:
     account: abc
     password: abc
 
-mysql:
-  migrate:
-    enable: true
-  dsn:
-    masters:
-      - root:root@tcp(mysql:3306)/mydb?charset=utf8mb4
-    slaves:
-      - root:root@tcp(mysql:3306)/mydb?charset=utf8mb4
+mongo:
+  user: root
+  password: root
+  ip: mongo
+  port: 27017
 
 redis:
   # cluster:

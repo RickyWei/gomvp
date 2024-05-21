@@ -1,0 +1,34 @@
+input UserInput {
+  username: String!
+  nickname: String
+  email: String
+  password: String
+  mobile: String
+}
+
+type User {
+  model: MongoModel
+
+  username: String!
+  nickname: String
+  email: String
+  password: String
+  mobile: String
+}
+
+input Login {
+  username: String!
+  password: String!
+}
+
+extend type Query {
+  user: User!
+}
+
+extend type Mutation {
+  createUser(input: UserInput!): User!
+  deleteUser(input: String!): String!
+  updateUser(input: UserInput!): User!
+
+  login(input: Login): User!
+}

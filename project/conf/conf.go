@@ -41,3 +41,7 @@ func Int(path string) int {
 func Bool(path string) bool {
 	return k.Bool(path)
 }
+
+func IsProd() bool {
+	return String("env") == "prod"
+}

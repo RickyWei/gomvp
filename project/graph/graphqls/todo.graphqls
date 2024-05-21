@@ -1,0 +1,27 @@
+input TodoInput {
+  userId: String!
+  name: String!
+  ddl: Int
+  done: Boolean
+  doneAt: Int
+}
+
+type Todo {
+  model: MongoModel
+
+  userId: String!
+  name: String!
+  ddl: Int
+  done: Boolean
+  doneAt: Int
+}
+
+extend type Query {
+  todos: [Todo!]!
+}
+
+extend type Mutation {
+  createTodo(input: TodoInput!): Todo!
+  deleteTodo(input: String!): String!
+  updateTodo(input: TodoInput!): Todo!
+}

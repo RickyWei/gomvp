@@ -6,13 +6,15 @@ services:
       context: .
       dockerfile: Dockerfile
     container_name: app
-    # volumes:
-    #   - ./log:/app/log
+    env_file:
+      - .env
+    user: ${UID}:${GID}
+    volumes:
+      - ./volume/log:/app/log
     ports:
       - "8000:80"
-      # - "8001:8001"
     depends_on:
-      - mysql
+      - mongo
       - redis
       # - prometheus
       # - grafana
@@ -24,15 +26,19 @@ services:
         limits:
           cpus: "2"
 
-  mysql:
-    image: mysql:latest
-    container_name: mysql
+  mongo:
+    image: mongo:latest
+    container_name: mongo
+    env_file:
+      - .env
+    user: ${UID}:${GID}
     volumes:
-      - ./po/sql/:/docker-entrypoint-initdb.d
+      - ./volume/mongo:/data/db
     environment:
-      - MYSQL_ROOT_PASSWORD=root
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: root
     ports:
-      - 3306:3306
+      - 27017:27017
     networks:
       - net
     restart: always
@@ -40,6 +46,9 @@ services:
   redis:
     image: redis:latest
     container_name: redis
+    env_file:
+      - .env
+    user: ${UID}:${GID}
     ports:
       - 6379:6379
     networks:
