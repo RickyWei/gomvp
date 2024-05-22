@@ -9,9 +9,9 @@ type Login struct {
 
 type MongoModel struct {
 	ID        *string `json:"id,omitempty" bson:"_id,omitempty"`
-	CreatedAt *int    `json:"createdAt,omitempty"`
-	UpdatedAt *int    `json:"updatedAt,omitempty"`
-	DeletedAt *int    `json:"deletedAt,omitempty"`
+	CreatedAt *int64  `json:"createdAt,omitempty"`
+	UpdatedAt *int64  `json:"updatedAt,omitempty"`
+	DeletedAt *int64  `json:"deletedAt,omitempty"`
 }
 
 type Mutation struct {
@@ -24,17 +24,17 @@ type Todo struct {
 	Model  *MongoModel `json:"model,omitempty"`
 	UserID string      `json:"userId"`
 	Name   string      `json:"name"`
-	Ddl    *int        `json:"ddl,omitempty"`
+	Ddl    *int64      `json:"ddl,omitempty"`
 	Done   *bool       `json:"done,omitempty"`
-	DoneAt *int        `json:"doneAt,omitempty"`
+	DoneAt *int64      `json:"doneAt,omitempty"`
 }
 
 type TodoInput struct {
 	UserID string `json:"userId"`
 	Name   string `json:"name"`
-	Ddl    *int   `json:"ddl,omitempty"`
+	Ddl    *int64 `json:"ddl,omitempty"`
 	Done   *bool  `json:"done,omitempty"`
-	DoneAt *int   `json:"doneAt,omitempty"`
+	DoneAt *int64 `json:"doneAt,omitempty"`
 }
 
 type User struct {

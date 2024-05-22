@@ -10,6 +10,7 @@ require (
 	github.com/golang-jwt/jwt/v5 v5.0.0
 	github.com/google/uuid v1.6.0
 	github.com/google/wire v0.5.0
+	github.com/jinzhu/copier v0.4.0
 	github.com/knadh/koanf v1.5.0
 	github.com/nicksnyder/go-i18n/v2 v2.2.2
 	github.com/oklog/run v1.0.0

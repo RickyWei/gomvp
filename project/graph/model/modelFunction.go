@@ -3,17 +3,16 @@
 
 package model
 
-func getIdFromModel(m *MongoModel) string {
-	if m == nil || m.ID == nil {
-		return ""
-	}
-	return *m.ID
+func (m *User) GetMM() *MongoModel {
+	return m.Model
+}
+func (m *User) SetMM(mm *MongoModel) {
+	m.Model = mm
 }
 
-func (m *User) GetId() string {
-	return getIdFromModel(m.Model)
+func (m *Todo) GetMM() *MongoModel {
+	return m.Model
 }
-
-func (m *Todo) GetId() string {
-	return getIdFromModel(m.Model)
+func (m *Todo) SetMM(mm *MongoModel) {
+	m.Model = mm
 }

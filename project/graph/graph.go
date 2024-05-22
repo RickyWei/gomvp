@@ -682,9 +682,9 @@ func (ec *executionContext) _MongoModel_createdAt(ctx context.Context, field gra
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*int)
+	res := resTmp.(*int64)
 	fc.Result = res
-	return ec.marshalOInt2ᚖint(ctx, field.Selections, res)
+	return ec.marshalOInt2ᚖint64(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_MongoModel_createdAt(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -723,9 +723,9 @@ func (ec *executionContext) _MongoModel_updatedAt(ctx context.Context, field gra
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*int)
+	res := resTmp.(*int64)
 	fc.Result = res
-	return ec.marshalOInt2ᚖint(ctx, field.Selections, res)
+	return ec.marshalOInt2ᚖint64(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_MongoModel_updatedAt(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -764,9 +764,9 @@ func (ec *executionContext) _MongoModel_deletedAt(ctx context.Context, field gra
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*int)
+	res := resTmp.(*int64)
 	fc.Result = res
-	return ec.marshalOInt2ᚖint(ctx, field.Selections, res)
+	return ec.marshalOInt2ᚖint64(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_MongoModel_deletedAt(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -1644,9 +1644,9 @@ func (ec *executionContext) _Todo_ddl(ctx context.Context, field graphql.Collect
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*int)
+	res := resTmp.(*int64)
 	fc.Result = res
-	return ec.marshalOInt2ᚖint(ctx, field.Selections, res)
+	return ec.marshalOInt2ᚖint64(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_Todo_ddl(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -1726,9 +1726,9 @@ func (ec *executionContext) _Todo_doneAt(ctx context.Context, field graphql.Coll
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*int)
+	res := resTmp.(*int64)
 	fc.Result = res
-	return ec.marshalOInt2ᚖint(ctx, field.Selections, res)
+	return ec.marshalOInt2ᚖint64(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_Todo_doneAt(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -3776,7 +3776,7 @@ func (ec *executionContext) fieldContext___Type_specifiedByURL(ctx context.Conte
 
 // region    **************************** input.gotpl *****************************
 
-func (ec *executionContext) unmarshalInputLogin(ctx context.Context, obj interface{}) (model.Login, error) {
+func (ec *executionContext) unmarshalInputLogin(ctx context.Context, obj interface{}) (*model.Login, error) {
 	var it model.Login
 	asMap := map[string]interface{}{}
 	for k, v := range obj.(map[string]interface{}) {
@@ -3794,23 +3794,23 @@ func (ec *executionContext) unmarshalInputLogin(ctx context.Context, obj interfa
 			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("username"))
 			data, err := ec.unmarshalNString2string(ctx, v)
 			if err != nil {
-				return it, err
+				return &it, err
 			}
 			it.Username = data
 		case "password":
 			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("password"))
 			data, err := ec.unmarshalNString2string(ctx, v)
 			if err != nil {
-				return it, err
+				return &it, err
 			}
 			it.Password = data
 		}
 	}
 
-	return it, nil
+	return &it, nil
 }
 
-func (ec *executionContext) unmarshalInputTodoInput(ctx context.Context, obj interface{}) (model.TodoInput, error) {
+func (ec *executionContext) unmarshalInputTodoInput(ctx context.Context, obj interface{}) (*model.TodoInput, error) {
 	var it model.TodoInput
 	asMap := map[string]interface{}{}
 	for k, v := range obj.(map[string]interface{}) {
@@ -3828,44 +3828,44 @@ func (ec *executionContext) unmarshalInputTodoInput(ctx context.Context, obj int
 			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("userId"))
 			data, err := ec.unmarshalNString2string(ctx, v)
 			if err != nil {
-				return it, err
+				return &it, err
 			}
 			it.UserID = data
 		case "name":
 			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("name"))
 			data, err := ec.unmarshalNString2string(ctx, v)
 			if err != nil {
-				return it, err
+				return &it, err
 			}
 			it.Name = data
 		case "ddl":
 			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("ddl"))
-			data, err := ec.unmarshalOInt2ᚖint(ctx, v)
+			data, err := ec.unmarshalOInt2ᚖint64(ctx, v)
 			if err != nil {
-				return it, err
+				return &it, err
 			}
 			it.Ddl = data
 		case "done":
 			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("done"))
 			data, err := ec.unmarshalOBoolean2ᚖbool(ctx, v)
 			if err != nil {
-				return it, err
+				return &it, err
 			}
 			it.Done = data
 		case "doneAt":
 			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("doneAt"))
-			data, err := ec.unmarshalOInt2ᚖint(ctx, v)
+			data, err := ec.unmarshalOInt2ᚖint64(ctx, v)
 			if err != nil {
-				return it, err
+				return &it, err
 			}
 			it.DoneAt = data
 		}
 	}
 
-	return it, nil
+	return &it, nil
 }
 
-func (ec *executionContext) unmarshalInputUserInput(ctx context.Context, obj interface{}) (model.UserInput, error) {
+func (ec *executionContext) unmarshalInputUserInput(ctx context.Context, obj interface{}) (*model.UserInput, error) {
 	var it model.UserInput
 	asMap := map[string]interface{}{}
 	for k, v := range obj.(map[string]interface{}) {
@@ -3883,41 +3883,41 @@ func (ec *executionContext) unmarshalInputUserInput(ctx context.Context, obj int
 			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("username"))
 			data, err := ec.unmarshalNString2string(ctx, v)
 			if err != nil {
-				return it, err
+				return &it, err
 			}
 			it.Username = data
 		case "nickname":
 			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("nickname"))
 			data, err := ec.unmarshalOString2ᚖstring(ctx, v)
 			if err != nil {
-				return it, err
+				return &it, err
 			}
 			it.Nickname = data
 		case "email":
 			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("email"))
 			data, err := ec.unmarshalOString2ᚖstring(ctx, v)
 			if err != nil {
-				return it, err
+				return &it, err
 			}
 			it.Email = data
 		case "password":
 			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("password"))
 			data, err := ec.unmarshalOString2ᚖstring(ctx, v)
 			if err != nil {
-				return it, err
+				return &it, err
 			}
 			it.Password = data
 		case "mobile":
 			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("mobile"))
 			data, err := ec.unmarshalOString2ᚖstring(ctx, v)
 			if err != nil {
-				return it, err
+				return &it, err
 			}
 			it.Mobile = data
 		}
 	}
 
-	return it, nil
+	return &it, nil
 }
 
 // endregion **************************** input.gotpl *****************************
@@ -4672,7 +4672,7 @@ func (ec *executionContext) marshalNTodo2ᚖgithubᚗcomᚋrickyweiᚋsparrowᚋ
 
 func (ec *executionContext) unmarshalNTodoInput2githubᚗcomᚋrickyweiᚋsparrowᚋprojectᚋgraphᚋmodelᚐTodoInput(ctx context.Context, v interface{}) (model.TodoInput, error) {
 	res, err := ec.unmarshalInputTodoInput(ctx, v)
-	return res, graphql.ErrorOnPath(ctx, err)
+	return *res, graphql.ErrorOnPath(ctx, err)
 }
 
 func (ec *executionContext) marshalNUser2githubᚗcomᚋrickyweiᚋsparrowᚋprojectᚋgraphᚋmodelᚐUser(ctx context.Context, sel ast.SelectionSet, v model.User) graphql.Marshaler {
@@ -4691,7 +4691,7 @@ func (ec *executionContext) marshalNUser2ᚖgithubᚗcomᚋrickyweiᚋsparrowᚋ
 
 func (ec *executionContext) unmarshalNUserInput2githubᚗcomᚋrickyweiᚋsparrowᚋprojectᚋgraphᚋmodelᚐUserInput(ctx context.Context, v interface{}) (model.UserInput, error) {
 	res, err := ec.unmarshalInputUserInput(ctx, v)
-	return res, graphql.ErrorOnPath(ctx, err)
+	return *res, graphql.ErrorOnPath(ctx, err)
 }
 
 func (ec *executionContext) marshalN__Directive2githubᚗcomᚋ99designsᚋgqlgenᚋgraphqlᚋintrospectionᚐDirective(ctx context.Context, sel ast.SelectionSet, v introspection.Directive) graphql.Marshaler {
@@ -4989,19 +4989,19 @@ func (ec *executionContext) marshalOID2ᚖstring(ctx context.Context, sel ast.Se
 	return res
 }
 
-func (ec *executionContext) unmarshalOInt2ᚖint(ctx context.Context, v interface{}) (*int, error) {
+func (ec *executionContext) unmarshalOInt2ᚖint64(ctx context.Context, v interface{}) (*int64, error) {
 	if v == nil {
 		return nil, nil
 	}
-	res, err := graphql.UnmarshalInt(v)
+	res, err := graphql.UnmarshalInt64(v)
 	return &res, graphql.ErrorOnPath(ctx, err)
 }
 
-func (ec *executionContext) marshalOInt2ᚖint(ctx context.Context, sel ast.SelectionSet, v *int) graphql.Marshaler {
+func (ec *executionContext) marshalOInt2ᚖint64(ctx context.Context, sel ast.SelectionSet, v *int64) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
-	res := graphql.MarshalInt(*v)
+	res := graphql.MarshalInt64(*v)
 	return res
 }
 
@@ -5010,7 +5010,7 @@ func (ec *executionContext) unmarshalOLogin2ᚖgithubᚗcomᚋrickyweiᚋsparrow
 		return nil, nil
 	}
 	res, err := ec.unmarshalInputLogin(ctx, v)
-	return &res, graphql.ErrorOnPath(ctx, err)
+	return res, graphql.ErrorOnPath(ctx, err)
 }
 
 func (ec *executionContext) marshalOMongoModel2ᚖgithubᚗcomᚋrickyweiᚋsparrowᚋprojectᚋgraphᚋmodelᚐMongoModel(ctx context.Context, sel ast.SelectionSet, v *model.MongoModel) graphql.Marshaler {

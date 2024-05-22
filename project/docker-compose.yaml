@@ -8,7 +8,7 @@ services:
     container_name: app
     env_file:
       - .env
-    user: ${UID}:${GID}
+    # user: ${UID}:${GID}
     volumes:
       - ./volume/log:/app/log
     ports:
@@ -31,7 +31,7 @@ services:
     container_name: mongo
     env_file:
       - .env
-    user: ${UID}:${GID}
+    # user: ${UID}:${GID}
     volumes:
       - ./volume/mongo:/data/db
     environment:
@@ -48,7 +48,7 @@ services:
     container_name: redis
     env_file:
       - .env
-    user: ${UID}:${GID}
+    # user: ${UID}:${GID}
     ports:
       - 6379:6379
     networks:

@@ -8,6 +8,7 @@ import (
 	"context"
 	"fmt"
 
+	"github.com/jinzhu/copier"
 	"github.com/pkg/errors"
 	"github.com/rickywei/sparrow/project/api/middleware"
 	"github.com/rickywei/sparrow/project/db"
@@ -17,7 +18,20 @@ import (
 
 // CreateUser is the resolver for the createUser field.
 func (r *mutationResolver) CreateUser(ctx context.Context, input model.UserInput) (*model.User, error) {
-	panic(fmt.Errorf("not implemented: CreateUser - createUser"))
+	var err error
+	defer func() {
+		fmt.Printf("%+v", err)
+	}()
+
+	data := &model.User{}
+	if err = copier.Copy(data, input); err != nil {
+		return nil, errors.Wrap(err, "copy failed")
+	}
+	err = db.InsertOne(ctx, data)
+	if err != nil {
+		return nil, errors.Wrap(err, "created failed")
+	}
+	return data, nil
 }
 
 // DeleteUser is the resolver for the deleteUser field.
@@ -44,8 +58,12 @@ func (r *mutationResolver) Login(ctx context.Context, input *model.Login) (*mode
 	if err != nil {
 		return nil, errors.Wrap(err, "login failed")
 	}
+	fmt.Println("-----------------------------------")
+	fmt.Printf("%+v\n", data)
+	fmt.Printf("%+v\n", data.GetMM())
+	fmt.Println("-----------------------------------")
 
-	if err := setJwtCookie(gc, data.GetId()); err != nil {
+	if err = setJwtCookie(gc, *data.GetMM().ID); err != nil {
 		return nil, errors.Wrap(err, "set jwt failed")
 	}
 

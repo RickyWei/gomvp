@@ -49,13 +49,13 @@ resolver:
 # struct_fields_always_pointers: true
 
 # Optional: turn off to make resolvers return values instead of pointers for structs
-# resolvers_always_return_pointers: true
+resolvers_always_return_pointers: true
 
 # Optional: turn on to return pointers instead of values in unmarshalInput
-# return_pointers_in_unmarshalinput: false
+return_pointers_in_unmarshalinput: true
 
 # Optional: wrap nullable input fields with Omittable
-# nullable_input_omittable: true
+nullable_input_omittable: false
 
 # Optional: set to speed up generation time by not performing a final validation pass.
 # skip_validation: true
@@ -78,6 +78,4 @@ models:
       - github.com/99designs/gqlgen/graphql.String
   Int:
     model:
-      - github.com/99designs/gqlgen/graphql.Int
       - github.com/99designs/gqlgen/graphql.Int64
-      - github.com/99designs/gqlgen/graphql.Int32
