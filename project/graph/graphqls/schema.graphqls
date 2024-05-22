@@ -18,10 +18,3 @@ directive @goTag(
 type Query
 
 type Mutation
-
-type MongoModel {
-  id: ID @goTag(key: "bson", value: "_id,omitempty")
-  createdAt: Int @goTag(key: "bson", value: "createdAt")
-  updatedAt: Int @goTag(key: "bson", value: "updatedAt")
-  deletedAt: Int @goTag(key: "bson", value: "deletedAt")
-}

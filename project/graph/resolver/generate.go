@@ -9,16 +9,21 @@ import (
 	"github.com/99designs/gqlgen/api"
 	"github.com/99designs/gqlgen/codegen/config"
 	"github.com/99designs/gqlgen/plugin/modelgen"
+	"github.com/samber/lo"
 )
 
 // Defining mutation function
 func mutateHook(b *modelgen.ModelBuild) *modelgen.ModelBuild {
-	// for _, model := range b.Models {
-		// isMongo := false
-		// for _, field := range model.Fields {
-		// }
+	for _, model := range b.Models {
+		for _, field := range model.Fields {
+			field.Tag += ` bson:"` +
+				lo.Ternary(field.Name == "id", "_", "") +
+				field.Name +
+				lo.Ternary(field.Omittable, ",omitempty", "") +
+				`"`
+		}
 
-	// }
+	}
 
 	return b
 }

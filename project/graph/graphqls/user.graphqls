@@ -7,7 +7,10 @@ input UserInput {
 }
 
 type User {
-  model: MongoModel
+  id: ID
+  createdAt: Int
+  updatedAt: Int
+  deletedAt: Int
 
   username: String!
   nickname: String

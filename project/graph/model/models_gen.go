@@ -7,13 +7,6 @@ type Login struct {
 	Password string `json:"password"`
 }
 
-type MongoModel struct {
-	ID        *string `json:"id,omitempty" bson:"_id,omitempty"`
-	CreatedAt *int64  `json:"createdAt,omitempty"`
-	UpdatedAt *int64  `json:"updatedAt,omitempty"`
-	DeletedAt *int64  `json:"deletedAt,omitempty"`
-}
-
 type Mutation struct {
 }
 
@@ -21,12 +14,15 @@ type Query struct {
 }
 
 type Todo struct {
-	Model  *MongoModel `json:"model,omitempty"`
-	UserID string      `json:"userId"`
-	Name   string      `json:"name"`
-	Ddl    *int64      `json:"ddl,omitempty"`
-	Done   *bool       `json:"done,omitempty"`
-	DoneAt *int64      `json:"doneAt,omitempty"`
+	ID        *string `json:"id,omitempty"`
+	CreatedAt *int64  `json:"createdAt,omitempty"`
+	UpdatedAt *int64  `json:"updatedAt,omitempty"`
+	DeletedAt *int64  `json:"deletedAt,omitempty"`
+	UserID    string  `json:"userId"`
+	Name      string  `json:"name"`
+	Ddl       *int64  `json:"ddl,omitempty"`
+	Done      *bool   `json:"done,omitempty"`
+	DoneAt    *int64  `json:"doneAt,omitempty"`
 }
 
 type TodoInput struct {
@@ -38,12 +34,15 @@ type TodoInput struct {
 }
 
 type User struct {
-	Model    *MongoModel `json:"model,omitempty"`
-	Username string      `json:"username"`
-	Nickname *string     `json:"nickname,omitempty"`
-	Email    *string     `json:"email,omitempty"`
-	Password *string     `json:"password,omitempty"`
-	Mobile   *string     `json:"mobile,omitempty"`
+	ID        *string `json:"id,omitempty"`
+	CreatedAt *int64  `json:"createdAt,omitempty"`
+	UpdatedAt *int64  `json:"updatedAt,omitempty"`
+	DeletedAt *int64  `json:"deletedAt,omitempty"`
+	Username  string  `json:"username"`
+	Nickname  *string `json:"nickname,omitempty"`
+	Email     *string `json:"email,omitempty"`
+	Password  *string `json:"password,omitempty"`
+	Mobile    *string `json:"mobile,omitempty"`
 }
 
 type UserInput struct {

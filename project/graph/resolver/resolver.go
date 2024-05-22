@@ -1,3 +1,5 @@
+//go:generate go run generate.go
+
 package resolver
 
 // This file will not be regenerated automatically.
